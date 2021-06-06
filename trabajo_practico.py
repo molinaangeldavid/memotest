@@ -1,6 +1,6 @@
 import random
 
-LISTA = ['⌚','⌛','⏩','⏪','⏫','⏬','⏭','⏮','⏯','⏰','⏳','⏸','⏹','⏺','◧','◨','◩','◪','☔','☕','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓','⚽','⚾','⚿','⛄','⛅','⛉','⛊','⛋','⛌','⛍','⛔','⛝','⛞','⛟','⛡','⛢','⛣','⛨','⛩','⛪','⛫','⛰','⛱','⛲','⛳','⛴','⛵','⛶','⛷','⛸','⛹','⛺','✅','✆','✇','✈','✉','✊','✋','✌','✍','⨀','⨁','⨂','⨃','⨅','⨆','⨇','⨈','⨉','⨊','⨍','⨎','⨏','✐','✑','✒','✓','✔','✘','✜','✞','✟','❶','❷','❸','❹','❺','❻','❼','❽','❾','❿','➔','➕','➖','➗','➘','⚋','⚌','⚍','⚎','⚏','⚐','⚑','⚒','⚓','⚔','⚕','⚖','⚗','⚘','⚙','⚚','⚛','⚜','⚝','⚞','⚟''℁','ℂ','℃','℄','℆','ℇ','℈','℉','ℊ','ℋ','ℌ','ℍ','ℏ','ℐ','ℑ','ℒ','ℓ','℔','ℕ','№','℗','℘','℞','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','Y','X','Z']
+LISTA = ['⌚','⌛','⏩','⏪','⏫','⏬','⏭','⏮','⏯','⏰','⏸','⏹','⏺','◧','◨','◩','◪','☔','☕','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓','⚽','⚾','⚿','⛄','⛅','⛉','⛊','⛋','⛌','⛍','⛔','⛝','⛞','⛟','⛡','⛢','⛣','⛨','⛩','⛪','⛫','⛰','⛱','⛲','⛳','⛴','⛵','⛶','⛷','⛸','⛹','⛺','✅','✆','✇','✈','✉','✊','✋','✌','✍','⨀','⨁','⨂','⨃','⨅','⨆','⨇','⨈','⨉','⨊','⨍','⨎','⨏','✐','✑','✒','✓','✔','✘','✜','✞','✟','❶','❷','❸','❹','❺','❻','❼','❽','❾','❿','➔','➕','➖','➗','➘','⚋','⚌','⚍','⚎','⚏','⚐','⚑','⚒','⚓','⚔','⚕','⚖','⚗','⚘','⚙','⚚','⚛','⚜','⚝','⚞','⚟''℁','ℂ','℃','℄','℆','ℇ','℈','℉','ℊ','ℋ','ℌ','ℍ','ℏ','ℐ','ℑ','ℒ','ℓ','℔','ℕ','№','℗','℘','℞']
 
 def nombre_jugador()->str:
     '''
@@ -47,19 +47,31 @@ def validar_opcion_cartas()->int:
     numero = int(numero)
     return numero
 
-def validar_filas_columnas(dimension:int)->int: #Modificar a fila y columna
+def validar_filas_columnas(dimension:int,tablero_incognito:list)->int: #Modificar a fila y columna
     '''
-    PRE: Ingresa un valor numerico positivo, la cual es la dimension de la matriz a jugar
+    PRE: Ingresa un valor numerico positivo, la cual es la dimension de la matriz a jugar. Tambien ingresa el tablero incognito del jugador
     POST: Retorna la coordenada de la matriz a adivinar
     '''
-    coord = input('\tIngrese la coordenada de la ficha: ')
-    while not(coord.isnumeric() and int(coord)<=dimension):
-        coord = input('\tCoordenada incorrecta. Ingrese la coordenada de la ficha: ')
-    coord = int(coord) 
-    coord -= 1
-    return coord
+    coord1 = input('\t1.Ingrese la fila de la primer ficha: ')
+    coord2 = input('\t1.Ingrese la columna de la primer ficha: ')
+    coord3 = input('\t2.Ingrese la fila de la segunda ficha: ')
+    coord4 = input('\t2.Ingrese la columna de la segunda ficha: ')
+    while not(coord1.isnumeric() and coord2.isnumeric() and coord3.isnumeric() and coord4.isnumeric() and int(coord1)<=dimension and int(coord2)<=dimension and int(coord3)<=dimension and int(coord4)<=dimension and int(coord1)>=1 and int(coord2)>=1 and int(coord3)>=1 and int(coord4)>=1 and tablero_incognito[int(coord1)-1][int(coord2)-1]=='·' and tablero_incognito[int(coord3)-1][int(coord4)-1]=='·'):
+        coord1 = input('\t1.Coordenada incorrecta. Ingrese la  fila de la primer ficha: ')
+        coord2 = input('\t1.Coordenada incorrecta. Ingrese la columna de la primer ficha: ')
+        coord3 = input('\t2.Coordenada incorrecta. Ingrese la fila de la segunda ficha: ')
+        coord4 = input('\t2.Coordenada incorrecta. Ingrese la columna de la segunda ficha: ')
+    fila1 = int(coord1)
+    columna1 = int(coord2)
+    fila2 = int(coord3)
+    columna2 = int(coord4)
+    fila1 -= 1
+    columna1 -= 1
+    fila2 -= 1
+    columna2 -= 1
+    return fila1,columna1,fila2,columna2
 
-def validar_cartas(bolsillo_cartas)->int:
+def validar_cartas(bolsillo_cartas:list)->int:
     '''
     PRE: Ingresa la lista del jugador, cuya lista pertenece al bolsillo del jugador 
     POST: Retorna la opcion del jugador si desea utilizar una carta especial
@@ -81,7 +93,7 @@ def crear_matriz_incognito(dimension:int)->list: #modularizar mucho con respecto
     for i in range(dimension):
         lista_incognito = []
         for j in range(dimension):
-            lista_incognito.append('?')
+            lista_incognito.append('·')
         matriz_final_inc.append(lista_incognito)     
     return matriz_final_inc
     
@@ -104,11 +116,16 @@ def crear_matriz(dimension:int)->list:
         lista_anidada.append(minilista)             
     return lista_anidada             
 
-def imprimir_puntuacion(score)->list:
+def imprimir_puntuacion(score:list)->list:
+    '''
+    PRE: Ingresa una lista, la cual es el puntaje(sea individual o coop) 
+    POST: Imprime una matriz de fila n y columna 2, la cual representa el puntaje de las partidas realizadas previamente ordenados de mayor a menor
+    '''
+    score = sorted(score, key = lambda x: x[1] , reverse=True) 
     for i in range(len(score)):
         for j in range(2):
             print(score[i][j], end='   ')
-        print()       
+        print()
 
 def imprimir_matriz(dimension:int,lista:list)->list:
     '''
@@ -117,7 +134,7 @@ def imprimir_matriz(dimension:int,lista:list)->list:
     '''
     for i in range(dimension):
         for j in range(dimension):
-            print(lista[i][j], end='    ')
+            print('\t\t',lista[i][j], end='    ')
         print('\n')
 
 def replay(jugador1,jugador2)->list: 
@@ -125,9 +142,12 @@ def replay(jugador1,jugador2)->list:
     PRE: Ingresa dos valores booleanos, la cual es jugador1 y jugador2
     POST: Retorna dos valores booleanos modificados. Basicamente si es el turno del jugador1, este vuelve a jugador y viceversa si es jugador2
     '''
-    if(jugador1):
+    '''
+    Esta funcion se aplica cuando el ciclo del jugador (1 o 2) este activa. entonces la funcion devolvera otra vez la condicion del ciclo para que repita turno el jugador
+    '''
+    if(jugador1==True):   
         return jugador1
-    elif(jugador2):    
+    elif(jugador2==True):
         return jugador2
 
 def toti(matriz:list)->list: 
@@ -147,7 +167,7 @@ def toti(matriz:list)->list:
 
 def layout(matriz:list)->list: 
     '''
-    PRE: Ingresa una lista como variable, la cual es el tablero del jugador
+    PRE: Ingresa una lista, la cual es el tablero del jugador
     POST: Retorna la misma lista pero con sus respectivos valores mezclados aleatoriamente
     '''
     for i in matriz:
@@ -155,6 +175,18 @@ def layout(matriz:list)->list:
     random.shuffle(matriz)    
     return matriz   
     
+def aplicar_layout_incognito(tablero:list,adivinados:list,tablero_layout:list)->list:  
+    '''
+    PRE: Ingresa 3 listas, la cual importan tres tableros que pertenecen al jugador contrario. El tablero funcional, los caracteres adivinados y una lista anidada incognita alternativa
+    POST: Retorna una lista, la cual es la lista anidada alternativa con los caracteres adivinados por el jugador. Esta función es exclusiva para la carta especial Layout
+    '''
+    for i in range(len(tablero)):
+        for j in range(len(tablero[i])):
+            for k in adivinados:
+                if(tablero[i][j]==k):
+                    tablero_layout[i][j] = tablero[i][j]
+    return tablero_layout                
+
 def fatality(matriz:list)->list: 
     '''
     PRE: Ingresa una lista como variable, la cual es el tablero del jugador
@@ -169,7 +201,11 @@ def fatality(matriz:list)->list:
     return matriz_traspuesta     
 
 def cartas_probabilidad(nombre:str,bolsillo_carta:list)->None:
-    print(f'Jugador {nombre} ha tirado dado.\n')
+    '''
+    PRE: Ingresa el nombre del jugador que tira el dado, ademas el bolsillo del jugador, cuyo contenido son las cartas especiales que le tocó
+    POST: Imprime la cartra que le tocó al jugador y guarda la carta en el bolsillo
+    '''
+    print(f'------------Jugador {nombre} ha tirado dado.------------\n')
     probabilidades = random.randint(0,100)
     if(probabilidades>=0 and probabilidades<=5):
         print('\tTe toco carta FATALITY')
@@ -179,54 +215,22 @@ def cartas_probabilidad(nombre:str,bolsillo_carta:list)->None:
         print('\tTe toco carta REPLAY')
         carta2 = 'replay'
         bolsillo_carta.append(carta2)
-    elif(probabilidades>=17 and probabilidades<=30):
+    elif(probabilidades>=17 and probabilidades<=17): 
         print('\tTe toco carta LAYOUT')
         carta3 = 'layout'
         bolsillo_carta.append(carta3)
-    elif(probabilidades>=31 and probabilidades<=40):
+    elif(probabilidades>=18 and probabilidades<=28):
         print('\tTe toco carta TOTI')
         carta4 = 'toti'
         bolsillo_carta.append(carta4)
     else:
         print('\tNo te toco nada.')
 
-def usar_cartas(bolsillo_cartas:list,nombre:str,tablero:list)->None:
+def puntuacion(score_individual:list,score_coop:list)->None:
     '''
-    PRE: Ingresa una lista, la cual seria el bolsillo del jugador; un string, la cual es el nombre del jugador; y una lista, la cual es la lista del jugador la cual se aplicará la carta especial
-    POST: Imprime a quien afecta la carta comodin. En caso que no haya carta, imprime la inexistencia de la carta en el bolsillo del jugador
+    PRE: Ingresa dos listas, la cual son datos de puntuación del jugador y cuantos puntos/partidas ganó
+    POST: Retorna el nombre y la puntuacion del jugador
     '''
-    preguntar_carta1 = validar_cartas(bolsillo_cartas)
-    if(len(bolsillo_cartas)!=0 and preguntar_carta1=='si'):
-        print('Cartas especiales: Layout--Toti--Fatality')
-        print('1.Carta Layout')
-        print('2.carta fatality')
-        print('3.Carta Toti')
-        usar_carta1 = validar_opcion_cartas()
-        if(usar_carta1==1):
-            if('layout' in bolsillo_cartas):
-                print(f'Aplicando LAYOUT al jugador {nombre}...')
-                mi_tablero2 = layout(tablero)
-                bolsillo_cartas.remove('layout')
-            else:
-                print('No existe esa carta (layout) en su bolsillo')
-        elif(usar_carta1==2):
-            if('fatality' in bolsillo_cartas):
-                print(f'Aplicando FATALITY al jugador {nombre}...')
-                mi_tablero2 = fatality(tablero)
-                bolsillo_cartas.remove('fatality')
-            else: 
-                print('No existe esa carta (fatality) en su bolsillo')  
-        elif(usar_carta1==3):
-            if('toti' in bolsillo_cartas):
-                print(f'Aplicando TOTI al jugador {nombre}...')        
-                mi_tablero2 = toti(tablero)
-                bolsillo_cartas.remove('toti')
-            else:
-                print('No existe esa carta (toti) en su bolsillo')
-    elif(len(bolsillo_cartas)==0):
-        print('No tiene cartas para utilizar')      
-
-def puntuacion(score_individual,score_coop)->None:
     print('1.Puntaje individual')
     print('2.Puntaje Vs')
     opcion = input('Ingrese que puntaje desea visualizar 1/2: ')
@@ -234,13 +238,17 @@ def puntuacion(score_individual,score_coop)->None:
         opcion = input('Error de ingreso. Ingrese que puntaje desea visualizar 1/2: ')
     opcion = int(opcion)    
     if(opcion==1):
-        if(score_individual!=None):
+        if(len(score_individual)!=0):
             print('Nombre  Puntaje\n')
-            imprimir_puntuacion(score_individual) 
+            imprimir_puntuacion(score_individual)
+        else:
+            print('No existen jugadas')     
     elif(opcion==2):
-        if(score_coop!=None):
+        if(len(score_coop)!=0):
             print('Nombre  Partidas\n')
-            imprimir_puntuacion(score_coop)    
+            imprimir_puntuacion(score_coop)
+        else:
+            print('No existe jugadas')                   
 
 def salir()->bool:
     '''
@@ -283,7 +291,6 @@ def main()->None:
         eleccion = validar_opcion()
         #Aqui empieza la jugabilidad de juego individual
         if(eleccion==1): 
-            tablero_incognito = [] 
             intentos = 0
             puntaje = 0
             nombre = nombre_jugador()
@@ -292,16 +299,16 @@ def main()->None:
             mi_tablero_incognito = crear_matriz_incognito(dimension) #En esta variable guarda la matriz incognito que el jugador verá en pantalla  
             while(intentos<10 and puntaje<=((dimension**2)/2)):
                 print('\t\t\t\t\t\t\t\t\t\t\tJugador: {}\n'.format(nombre))
-                print('--Ahora ingrese fila y columna de la ficha 1')
-                fila1 = validar_filas_columnas(dimension)
-                columna1 = validar_filas_columnas(dimension)
-                print('--Ahora ingrese fila y columna de la ficha 2')
-                fila2 = validar_filas_columnas(dimension)
-                columna2 = validar_filas_columnas(dimension)
+                coordenadas = validar_filas_columnas(dimension,mi_tablero_incognito)
+                fila1 = coordenadas[0]
+                columna1 = coordenadas[1]
+                fila2 = coordenadas[2]
+                columna2 = coordenadas[3]
+                print(mi_tablero)
+                print(mi_tablero_incognito)
                 if(mi_tablero[fila1][columna1]==mi_tablero[fila2][columna2]):
                     mi_tablero_incognito[fila1][columna1] = mi_tablero[fila1][columna1]
                     mi_tablero_incognito[fila2][columna2] = mi_tablero[fila2][columna2]
-                    tablero_incognito = mi_tablero_incognito
                     imprimir_matriz(dimension,mi_tablero_incognito)
                     puntaje += 1
                     print(f'\nBien!! Tu puntaje es: {puntaje}')
@@ -314,19 +321,18 @@ def main()->None:
                     mi_tablero_incognito[fila1][columna1] = retroceso1
                     mi_tablero_incognito[fila2][columna2] = retroceso2
                     intentos += 1
-                    if(intentos==10):
-                        print('Estuviste cerca. Pero falta ejercitar esa memoria!!')
-                        imprimir_matriz(dimension,mi_tablero)
+                    print('Intento n°',intentos)
+                if(intentos==10):
+                    print('Estuviste cerca. Pero falta ejercitar esa memoria!!')
+                    imprimir_matriz(dimension,mi_tablero)
                     print(f'\nIntentos en total: {intentos}')
                 if(intentos==10 or puntaje==dimension*2):
-                    puntaje_final = [nombre,puntaje]
-                    score_individual.append(puntaje_final)
+                    datos_guardar = [nombre,puntaje]
+                    score_individual.append(datos_guardar)
         #Aqui empieza la jugabilidad de jugador1 vs jugador2
         elif(eleccion==2): 
             bolsillo_cartas1 = []
             bolsillo_cartas2 = []
-            tablero_incognito1 = []
-            tablero_incognito2 = []
             print('--Ingrese nombre de jugador 1--')
             nombre1 = nombre_jugador()
             print('--Ingrese nombre de jugador 2--')
@@ -334,94 +340,162 @@ def main()->None:
             dimension = validar_tablero()
             mi_tablero1 = crear_matriz(dimension) 
             mi_tablero_incognito1 = crear_matriz_incognito(dimension)
+            tablero_incognito_layout1 = crear_matriz_incognito(dimension)
             mi_tablero2 = crear_matriz(dimension) 
             mi_tablero_incognito2 = crear_matriz_incognito(dimension)
+            tablero_incognito_layout2 = crear_matriz_incognito(dimension)
             puntaje1 = 0
             puntaje2 = 0
             jugador1 = True
             jugador2 = True
-            juego = 0
+            adivinados_jugador1 = []
+            adivinados_jugador2 = []
             while(puntaje1 < ((dimension**2)/2) and puntaje2 < ((dimension**2)/2)):
                 while(jugador1 == True):
                     cartas_probabilidad(nombre1,bolsillo_cartas1)   
-                    print('\t\t\t\t\tJugador: {}\n'.format(nombre1))
-                    usar_cartas(bolsillo_cartas1,nombre1,mi_tablero1)              
-                    print('--Ahora ingrese fila y columna de la ficha 1')
-                    fila1 = validar_filas_columnas(dimension)
-                    columna1 = validar_filas_columnas(dimension)
-                    print('--Ahora ingrese fila y columna de la ficha 2')
-                    fila2 = validar_filas_columnas(dimension)
-                    columna2 = validar_filas_columnas(dimension)
+                    print('\n\n\t\t\t\t\tJugador: {}\n'.format(nombre1))  
+                    print('Tus cartas especiales disponibles son: ',bolsillo_cartas1)
+                    preguntar_carta1 = validar_cartas(bolsillo_cartas1)
+                    if(len(bolsillo_cartas1)!=0 and preguntar_carta1=='si'):
+                        print('Cartas especiales: Layout--Toti--Fatality')
+                        print('1.Carta Layout')
+                        print('2.carta fatality')
+                        print('3.Carta Toti')
+                        usar_carta1 = validar_opcion_cartas()
+                        if(usar_carta1==1):
+                            if('layout' in bolsillo_cartas1):
+                                print(f'Aplicando LAYOUT al jugador {nombre2}...')
+                                mi_tablero2 = layout(mi_tablero2)
+                                mi_tablero_incognito2 = aplicar_layout_incognito(mi_tablero2,adivinados_jugador2,tablero_incognito_layout2) 
+                                bolsillo_cartas1.remove('layout')
+                            else:
+                                print('No existe esa carta (layout) en su bolsillo')
+                        elif(usar_carta1==2):
+                            if('fatality' in bolsillo_cartas1):
+                                print(f'Aplicando FATALITY al jugador {nombre2}...')
+                                mi_tablero2 = fatality(mi_tablero2)
+                                mi_tablero_incognito2 = fatality(mi_tablero_incognito2)
+                                bolsillo_cartas1.remove('fatality')
+                            else: 
+                                print('No existe esa carta (fatality) en su bolsillo')  
+                        elif(usar_carta1==3):
+                            if('toti' in bolsillo_cartas1):
+                                print(f'Aplicando TOTI al jugador {nombre2}...')        
+                                mi_tablero2 = toti(mi_tablero2)
+                                mi_tablero_incognito2 = toti(mi_tablero_incognito2)
+                                bolsillo_cartas1.remove('toti')
+                            else:
+                                print('No existe esa carta (toti) en su bolsillo')
+                    elif(len(bolsillo_cartas1)==0):
+                        print('No tiene cartas para utilizar')     
+                    imprimir_matriz(dimension,mi_tablero_incognito1)        
+                    coordenadas = validar_filas_columnas(dimension,mi_tablero_incognito1)
+                    fila1 = coordenadas[0]
+                    columna1 = coordenadas[1]
+                    fila2 = coordenadas[2]
+                    columna2 = coordenadas[3]
                     if(mi_tablero1[fila1][columna1]==mi_tablero1[fila2][columna2]):
                         mi_tablero_incognito1[fila1][columna1] = mi_tablero1[fila1][columna1]
                         mi_tablero_incognito1[fila2][columna2] = mi_tablero1[fila2][columna2]
-                        tablero_incognito1 = mi_tablero_incognito1
+                        adivinados_jugador1.append(mi_tablero_incognito1[fila1][columna1])
                         imprimir_matriz(dimension,mi_tablero_incognito1)  
                         puntaje1 += 1
                     else:  
                         mi_tablero_incognito1[fila1][columna1] = mi_tablero1[fila1][columna1]
                         mi_tablero_incognito1[fila2][columna2] = mi_tablero1[fila2][columna2]
                         imprimir_matriz(dimension,mi_tablero_incognito1)  
-                        retroceso1 = ('?') 
-                        retroceso2 = ('?')
+                        retroceso1 = ('·') 
+                        retroceso2 = ('·')
                         mi_tablero_incognito1[fila1][columna1] = retroceso1
                         mi_tablero_incognito1[fila2][columna2] = retroceso2
                         jugador1 = False
-                        jugador2 = True
-                        if('replay' in bolsillo_cartas1):   
-                            turno_nuevo1 = input('Desea utilizar carta especial Replay? si/no: ')
-                            while not(turno_nuevo1.isalpha() and turno_nuevo1=='si' or turno_nuevo1=='no'): 
-                                turno_nuevo1 = input('Ingreso invalido. Vuelva a ingresar su respuesta si/no ') 
-                            if(turno_nuevo1=='si'):
-                                jugador1 = replay(jugador1,jugador2)
-                                bolsillo_cartas1.remove('replay')
+                        jugador2 = True    
+                    if('replay' in bolsillo_cartas1):   
+                        turno_nuevo1 = input('Desea utilizar carta especial Replay? si/no: ')
+                        while not(turno_nuevo1.isalpha() and turno_nuevo1=='si' or turno_nuevo1=='no'): 
+                            turno_nuevo1 = input('Ingreso invalido. Vuelva a ingresar su respuesta si/no ') 
+                        if(turno_nuevo1=='si'):
+                            jugador1 = replay(jugador1,jugador2)
+                            jugador2 = replay(jugador1,jugador2)    
+                            bolsillo_cartas1.remove('replay')
                         else:
-                            print('No tiene ninguna carta especial --Replay-- en su bolsillo')    
+                            print('No tiene ninguna carta especial --Replay-- en su bolsillo')     
                     if(puntaje1==((dimension**2)/2)):
-                        juego += 1
-                        datos_guardar = [f'{nombre1}',juego]
+                        datos_guardar = [nombre1,puntaje1]
                         score_coop.append(datos_guardar)
                         jugador1=False
                         jugador2=False          
                         print(f'El ganador es {nombre1}')  
                 while(jugador2 == True):
                     cartas_probabilidad(nombre2,bolsillo_cartas2)        
-                    print('\t\t\t\t\tJugador: {}\n'.format(nombre2))
-                    usar_cartas(bolsillo_cartas2,nombre2,mi_tablero2)     
-                    print('--Ahora ingrese fila y columna de la ficha 1')
-                    fila1 = validar_filas_columnas(dimension)
-                    columna1 = validar_filas_columnas(dimension)
-                    print('--Ahora ingrese fila y columna de la ficha 2')
-                    fila2 = validar_filas_columnas(dimension)
-                    columna2 = validar_filas_columnas(dimension)
+                    print('\n\n\t\t\t\t\tJugador: {}\n'.format(nombre2))
+                    print('Tus cartas especiales disponibles son: ',bolsillo_cartas2)
+                    preguntar_carta2 = validar_cartas(bolsillo_cartas2)
+                    if(len(bolsillo_cartas2)!=0 and preguntar_carta2=='si'):
+                        print('Cartas especiales: Layout--Toti--Fatality')
+                        print('1.Carta Layout')
+                        print('2.carta fatality')
+                        print('3.Carta Toti')
+                        usar_carta2 = validar_opcion_cartas()
+                        if(usar_carta2==1):
+                            if('layout' in bolsillo_cartas2):
+                                print(f'Aplicando LAYOUT al jugador {nombre1}...')
+                                mi_tablero1 = layout(mi_tablero1)
+                                mi_tablero_incognito1 = aplicar_layout_incognito(mi_tablero1,adivinados_jugador1,tablero_incognito_layout1)
+                                bolsillo_cartas2.remove('layout')
+                            else:
+                                print('No existe esa carta (layout) en su bolsillo')
+                        elif(usar_carta2==2):
+                            if('fatality' in bolsillo_cartas1):
+                                print(f'Aplicando FATALITY al jugador {nombre1}...')
+                                mi_tablero1 = fatality(mi_tablero1)
+                                mi_tablero_incognito1 = fatality(mi_tablero_incognito1)
+                                bolsillo_cartas2.remove('fatality')
+                            else: 
+                                print('No existe esa carta (fatality) en su bolsillo')  
+                        elif(usar_carta2==3):
+                            if('toti' in bolsillo_cartas2):
+                                print(f'Aplicando TOTI al jugador {nombre1}...')        
+                                mi_tablero1 = toti(mi_tablero1)
+                                mi_tablero_incognito1 = toti(mi_tablero_incognito1)
+                                bolsillo_cartas2.remove('toti')
+                            else:
+                                print('No existe esa carta (toti) en su bolsillo')
+                    elif(len(bolsillo_cartas2)==0):
+                        print('No tiene cartas para utilizar')    
+                        imprimir_matriz(dimension,mi_tablero_incognito2)
+                    coordenadas = validar_filas_columnas(dimension,mi_tablero_incognito2)
+                    fila1 = coordenadas[0]
+                    columna1 = coordenadas[1]
+                    fila2 = coordenadas[2]
+                    columna2 = coordenadas[3]
                     if(mi_tablero2[fila1][columna1]==mi_tablero2[fila2][columna2]):
                         mi_tablero_incognito2[fila1][columna1] = mi_tablero2[fila1][columna1]
                         mi_tablero_incognito2[fila2][columna2] = mi_tablero2[fila2][columna2]
-                        tablero_incognito2 = mi_tablero_incognito2
                         imprimir_matriz(dimension,mi_tablero_incognito2)      
                         puntaje2 += 1
                     else:  
                         mi_tablero_incognito2[fila1][columna1] = mi_tablero2[fila1][columna1]
                         mi_tablero_incognito2[fila2][columna2] = mi_tablero2[fila2][columna2]
                         imprimir_matriz(dimension,mi_tablero_incognito2)  
-                        retroceso1 = ('?') 
-                        retroceso2 = ('?')
+                        retroceso1 = ('·') 
+                        retroceso2 = ('·')
                         mi_tablero_incognito2[fila1][columna1] = retroceso1
                         mi_tablero_incognito2[fila2][columna2] = retroceso2
                         jugador2 = False
                         jugador1 = True
-                        if('replay' in bolsillo_cartas2):
-                            turno_nuevo2 = input('Desea utilizar carta especial Replay? si/no: ')
-                            while not(turno_nuevo2.isalpha() and turno_nuevo2=='si' or turno_nuevo2=='no'): 
-                                turno_nuevo2 = input('Ingreso invalido. Vuelva a ingresar su respuesta si/no ')    
-                            if(turno_nuevo2=='si'):
-                                jugador2 = replay(jugador1,jugador2)
-                                bolsillo_cartas2.remove('replay')
+                    if('replay' in bolsillo_cartas2 and mi_tablero2[fila1][columna1]!=mi_tablero2[fila2][columna2]):   
+                        turno_nuevo1 = input('Desea utilizar carta especial Replay? si/no: ')
+                        while not(turno_nuevo1.isalpha() and turno_nuevo1=='si' or turno_nuevo1=='no'): 
+                            turno_nuevo1 = input('Ingreso invalido. Vuelva a ingresar su respuesta si/no ') 
+                        if(turno_nuevo1=='si'):
+                            jugador1 = replay(jugador1,jugador2)
+                            jugador2 = replay(jugador1,jugador2)    
+                            bolsillo_cartas2.remove('replay')
                         else:
-                            print('No tiene ninguna carta especial --Replay-- en su bolsillo')    
+                            print('No tiene ninguna carta especial --Replay-- en su bolsillo')         
                     if(puntaje2==((dimension**2)/2)):
-                        juego += 1
-                        datos_guardar = [f'{nombre2}',juego]
+                        datos_guardar = [nombre2,puntaje2]
                         score_coop.append(datos_guardar)    
                         jugador1=False
                         jugador2=False
