@@ -57,7 +57,7 @@ def validar_coordenadas(dimension:int,tablero_incognito:list)->int: #Modificar a
         coord = input('\t1.Coordenada incorrecta. Ingrese otra vez: ')
     coord = int(coord)
     coord -= 1
-    return coord
+    return coord 
 
 def validar_filas_columnas(dimension:int,mi_tablero_incognito:list)->tuple:
     '''
